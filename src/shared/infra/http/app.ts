@@ -4,7 +4,7 @@ import cors from 'cors';
 import { errors } from 'celebrate';
 import { ResponseError } from '@shared/errors/ResponseError';
 import { routes } from './routes';
-import rateLimiter from './middlewares/rateLimiter';
+import { rateLimiter } from './middlewares/rateLimiter';
 
 const app = express();
 app.use(cors());
