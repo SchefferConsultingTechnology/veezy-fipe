@@ -1,0 +1,6 @@
+{
+  "builds": [
+    { "src": "dist/shared/infra/http/server.js", "use": "@vercel/node" }
+  ],
+  "routes": [{ "src": "/(.*)", "dest": "dist/shared/infra/http/server.js" }]
+}
