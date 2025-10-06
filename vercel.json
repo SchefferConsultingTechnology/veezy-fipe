@@ -1,7 +1,6 @@
 {
   "version": 2,
   "buildCommand": "npm run build",
-  "outputDirectory": ".vercel_build_output",
   "builds": [
     { "src": "dist/shared/infra/http/server.js", "use": "@vercel/node" }
   ],
