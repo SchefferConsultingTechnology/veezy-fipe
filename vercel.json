@@ -5,7 +5,7 @@
     { "src": "dist/shared/infra/http/server.js", "use": "@vercel/node" }
   ],
   "routes": [
-    { "src": "/api/(.*)", "dest": "/dist/shared/infra/http/server.js" },
-    { "src": "/(.*)", "dest": "/dist/shared/infra/http/server.js" }
+    { "src": "/api/(.*)", "dest": "dist/shared/infra/http/server.js" },
+    { "src": "/(.*)", "dest": "dist/shared/infra/http/server.js" }
   ]
 }
