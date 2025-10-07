@@ -46,7 +46,7 @@ class ListReferenceService {
           `Erro na requisição para a API FIPE: ${error.message}`;
         throw new ResponseError(message, status);
       }
-      throw new ResponseError('Erro inesperado ao consultar marcas.', 500);
+      throw new ResponseError('Erro inesperado ao consultar refêrencias.', 500);
     }
   }
 }
