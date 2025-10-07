@@ -1,7 +1,8 @@
 {
   "version": 2,
-  "builds": [
-    { "src": "dist/shared/infra/http/server.js", "use": "@vercel/node" }
-  ],
-  "routes": [{ "src": "/(.*)", "dest": "dist/shared/infra/http/server.js" }]
+  "buildCommand": "npm run build",
+  "routes": [
+    { "src": "/api/(.*)", "dest": "dist/shared/infra/http/server.js" },
+    { "src": "/(.*)", "dest": "dist/shared/infra/http/server.js" }
+  ]
 }
