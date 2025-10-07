@@ -6,7 +6,30 @@ import { IBrandsResponse } from '@modules/brand/domain/models/IBrandsResponse';
 import { IVehiclesResponse } from '../domain/models/IVehiclesResponse';
 import { ResponseError } from '@shared/errors/ResponseError';
 
-function isVehicleResponseObject(
+export function isVehicleResponseObject(
+  data: unknown,
+): data is IVehiclesResponse {
+  if (data === null || typeof data !== 'object') return false;
+
+  const obj = data as Record<string, unknown>;
+
+  return (
+    typeof obj.Valor === 'string' &&
+    typeof obj.Marca === 'string' &&
+    typeof obj.Modelo === 'string' &&
+    typeof obj.AnoModelo === 'number' &&
+    Number.isFinite(obj.AnoModelo) &&
+    typeof obj.Combustivel === 'string' &&
+    typeof obj.CodigoFipe === 'string' &&
+    typeof obj.MesReferencia === 'string' &&
+    typeof obj.Autenticacao === 'string' &&
+    typeof obj.TipoVeiculo === 'number' &&
+    Number.isFinite(obj.TipoVeiculo) &&
+    typeof obj.SiglaCombustivel === 'string' &&
+    typeof obj.DataConsulta === 'string'
+  );
+}
+/* function isVehicleResponseObject(
   data: IVehiclesResponse,
 ): data is IVehiclesResponse {
   return (
@@ -18,7 +41,7 @@ function isVehicleResponseObject(
         typeof item.Valor === 'string' &&
         typeof item.Marca === 'string' &&
         typeof item.Modelo === 'string' &&
-        typeof item.AnoModelo === 'string' &&
+        typeof item.AnoModelo === 'number' &&
         typeof item.Combustivel === 'string' &&
         typeof item.CodigoFipe === 'string' &&
         typeof item.MesReferencia === 'string' &&
@@ -29,7 +52,7 @@ function isVehicleResponseObject(
     )
   );
 }
-
+ */
 class VehiclesService {
   public async execute({
     reference,
@@ -71,6 +94,7 @@ class VehiclesService {
           502,
         );
       }
+
       const result = await jsonToObjectVehicle(resp.data);
       return result;
     } catch (error) {
@@ -82,7 +106,7 @@ class VehiclesService {
         throw new ResponseError(message, status);
       }
 
-      throw new ResponseError('Erro inesperado ao consultar marcas.', 500);
+      throw new ResponseError('Erro inesperado ao consultar veiculo.', 500);
     }
   }
 }
