@@ -4,10 +4,11 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
+    "generate:swagger": "node swagger.js",
     "start": "node dist/shared/infra/http/server.js",
     "test": "echo \"Error: no test specified\" &amp;&amp; exit 1",
     "dev": "ts-node-dev -r tsconfig-paths/register --inspect --transpile-only --ignore-watch node_modules src/shared/infra/http/server.ts",
-    "build": "babel src --extensions \".js,.ts\" --out-dir dist --copy-files",
+    "build": "npm run generate:swagger && babel src --extensions \".js,.ts\" --out-dir dist --copy-files",
     "lint": "eslint . --ext .ts",
     "lint-fix": "eslint . --ext .ts --fix",
     "swagger-autogen": "node swagger.js"
@@ -51,6 +52,8 @@
     "redis": "^5.8.3",
     "reflect-metadata": "^0.2.2",
     "serverless-http": "^4.0.0",
+    "swagger-autogen": "^2.23.7",
+    "swagger-ui-express": "^5.0.1",
     "tsyringe": "^4.10.0"
   }
 }

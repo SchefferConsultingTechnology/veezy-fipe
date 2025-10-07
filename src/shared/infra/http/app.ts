@@ -5,11 +5,13 @@ import { errors } from 'celebrate';
 import { ResponseError } from '@shared/errors/ResponseError';
 import { routes } from './routes';
 import { rateLimiter } from './middlewares/rateLimiter';
+import { setupSwagger } from './swagger/swagger';
 
 const app = express();
 app.use(cors());
 app.use(express.json());
 app.use(rateLimiter);
+setupSwagger(app);
 app.use('/api', routes);
 app.use(errors());
 

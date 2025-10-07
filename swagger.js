@@ -1,8 +1,15 @@
-const swaggerAutogen = require('swagger-autogen')()
+const swaggerAutogen = require('swagger-autogen')();
 
-const outputFile = './swagger_output.json'
-const endpointsFiles = ['./endpoints.js']
+const doc = {
+  info: {
+    title: 'Veezy FIPE API',
+    description: 'Documentação dos endpoints FIPE.',
+  },
+  host: 'localhost:3002', // ou seu domínio da Vercel depois
+  schemes: ['http', 'https'],
+};
 
-swaggerAutogen(outputFile, endpointsFiles).then(() => {
-    require('./dist/shared/infra/http/server.js')
-})
+const outputFile = './src/shared/infra/http/swagger/swagger-output.json';
+const endpointsFiles = ['./src/shared/infra/http/routes/index.ts'];
+
+swaggerAutogen(outputFile, endpointsFiles, doc);
