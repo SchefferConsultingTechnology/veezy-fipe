@@ -5,16 +5,18 @@ import { jsonToObjectYearModel } from '../mappers/YearModelMapper';
 import { IYearModelResponse } from '../domain/models/IYearModelResponse';
 import { ResponseError } from '@shared/errors/ResponseError';
 
-function isYearsModelResponseArray(data: any): data is IYearModel[] {
+function isYearsModelResponseArray(data: unknown): data is IYearModel[] {
   return (
     Array.isArray(data) &&
-    data.every(
-      item =>
-        item &&
-        typeof item === 'object' &&
-        typeof item.Label === 'string' &&
-        typeof item.Value === 'string',
-    )
+    data.every(item => {
+      const obj = item as Record<string, unknown>;
+      return (
+        obj &&
+        typeof obj === 'object' &&
+        typeof obj.Label === 'string' &&
+        typeof obj.Value === 'string'
+      );
+    })
   );
 }
 
@@ -56,7 +58,7 @@ class YearModelsService {
           `Erro na requisição para a API FIPE: ${error.message}`;
         throw new ResponseError(message, status);
       }
-      throw new ResponseError('Erro inesperado ao consultar marcas.', 500);
+      throw new ResponseError('Erro inesperado ao consultar ano modelo.', 500);
     }
   }
 }

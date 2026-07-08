@@ -5,16 +5,18 @@ import { jsonToObjectBrands } from '../mappers/BrandsMapper';
 import { IBrandsResponse } from '../domain/models/IBrandsResponse';
 import { ResponseError } from '@shared/errors/ResponseError'; // caso já tenha essa classe customizada
 
-function isBrandsResponseArray(data: any): data is IBrandsResponse[] {
+function isBrandsResponseArray(data: unknown): data is IBrandsResponse[] {
   return (
     Array.isArray(data) &&
-    data.every(
-      item =>
-        item &&
-        typeof item === 'object' &&
-        typeof item.Label === 'string' &&
-        typeof item.Value === 'string',
-    )
+    data.every(item => {
+      const obj = item as Record<string, unknown>;
+      return (
+        obj &&
+        typeof obj === 'object' &&
+        typeof obj.Label === 'string' &&
+        typeof obj.Value === 'string'
+      );
+    })
   );
 }
 

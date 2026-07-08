@@ -2,7 +2,6 @@ import axios from 'axios';
 import { IVehicles } from '../domain/models/IVehicles';
 import { IVehiclesParams } from '../domain/models/IVehiclesParams';
 import { jsonToObjectVehicle } from '../mappers/vehiclesMapper';
-import { IBrandsResponse } from '@modules/brand/domain/models/IBrandsResponse';
 import { IVehiclesResponse } from '../domain/models/IVehiclesResponse';
 import { ResponseError } from '@shared/errors/ResponseError';
 
@@ -29,30 +28,6 @@ export function isVehicleResponseObject(
     typeof obj.DataConsulta === 'string'
   );
 }
-/* function isVehicleResponseObject(
-  data: IVehiclesResponse,
-): data is IVehiclesResponse {
-  return (
-    Array.isArray(data) &&
-    data.every(
-      item =>
-        item &&
-        typeof item === 'object' &&
-        typeof item.Valor === 'string' &&
-        typeof item.Marca === 'string' &&
-        typeof item.Modelo === 'string' &&
-        typeof item.AnoModelo === 'number' &&
-        typeof item.Combustivel === 'string' &&
-        typeof item.CodigoFipe === 'string' &&
-        typeof item.MesReferencia === 'string' &&
-        typeof item.Autenticacao === 'string' &&
-        typeof item.TipoVeiculo === 'number' &&
-        typeof item.SiglaCombustivel === 'string' &&
-        typeof item.DataConsulta === 'string',
-    )
-  );
-}
- */
 class VehiclesService {
   public async execute({
     reference,

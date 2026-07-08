@@ -1,20 +1,23 @@
 import axios from 'axios';
 import { IReference } from '../domain/models/IReference';
 import { jsonToObjectReference } from '../mappers/ReferenceMapper';
-import { IBrandsResponse } from '@modules/brand/domain/models/IBrandsResponse';
 import { ResponseError } from '@shared/errors/ResponseError';
 import { IReferenceResponse } from '../domain/models/IReferenceResponse';
 
-function isReferencewResponseArray(data: any): data is IReferenceResponse[] {
+function isReferencewResponseArray(
+  data: unknown,
+): data is IReferenceResponse[] {
   return (
     Array.isArray(data) &&
-    data.every(
-      item =>
-        item &&
-        typeof item === 'object' &&
-        typeof item.Codigo === 'number' &&
-        typeof item.Mes === 'string',
-    )
+    data.every(item => {
+      const obj = item as Record<string, unknown>;
+      return (
+        obj &&
+        typeof obj === 'object' &&
+        typeof obj.Codigo === 'number' &&
+        typeof obj.Mes === 'string'
+      );
+    })
   );
 }
 
