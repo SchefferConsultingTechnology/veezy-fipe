@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { fipeClient } from '@shared/infra/http/fipeClient';
 import { IVehicles } from '../domain/models/IVehicles';
 import { IVehiclesParams } from '../domain/models/IVehiclesParams';
 import { jsonToObjectVehicle } from '../mappers/vehiclesMapper';
@@ -55,7 +56,7 @@ class VehiclesService {
       tipoConsulta: 'tradicional',
     };
     try {
-      const resp = await axios.post<IVehiclesResponse>(url, params);
+      const resp = await fipeClient.post<IVehiclesResponse>(url, params);
       if (resp.status >= 400) {
         throw new ResponseError(
           `Erro HTTP da API FIPE: ${resp.status} - ${resp.statusText}`,

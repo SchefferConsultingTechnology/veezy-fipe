@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { fipeClient } from '@shared/infra/http/fipeClient';
 import { IReference } from '../domain/models/IReference';
 import { jsonToObjectReference } from '../mappers/ReferenceMapper';
 import { ResponseError } from '@shared/errors/ResponseError';
@@ -26,7 +27,7 @@ class ListReferenceService {
     const url = `${process.env.APP_API_FIPE_URL}ConsultarTabelaDeReferencia`;
 
     try {
-      const resp = await axios.post(url);
+      const resp = await fipeClient.post(url);
       const result = resp.data;
       if (resp.status >= 400) {
         throw new ResponseError(

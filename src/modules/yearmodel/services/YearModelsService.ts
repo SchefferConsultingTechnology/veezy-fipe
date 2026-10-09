@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { fipeClient } from '@shared/infra/http/fipeClient';
 import { IYearModel } from '../domain/models/IYearModel';
 import { IYearModelParams } from '../domain/models/IYearModelParams';
 import { jsonToObjectYearModel } from '../mappers/YearModelMapper';
@@ -35,7 +36,7 @@ class YearModelsService {
       codigoModelo: model,
     };
     try {
-      const resp = await axios.post<IYearModelResponse[]>(url, params);
+      const resp = await fipeClient.post<IYearModelResponse[]>(url, params);
       if (resp.status >= 400) {
         throw new ResponseError(
           `Erro HTTP da API FIPE: ${resp.status} - ${resp.statusText}`,

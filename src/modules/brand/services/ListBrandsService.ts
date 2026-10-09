@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { fipeClient } from '@shared/infra/http/fipeClient';
 import { IBrands } from '../domain/models/IBrands';
 import { ISearchParams } from '../domain/models/ISearchParams';
 import { jsonToObjectBrands } from '../mappers/BrandsMapper';
@@ -32,7 +33,7 @@ class ListBrandsService {
     };
 
     try {
-      const resp = await axios.post(url, params);
+      const resp = await fipeClient.post(url, params);
 
       if (resp.status >= 400) {
         throw new ResponseError(

@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { fipeClient } from '@shared/infra/http/fipeClient';
 import { IModelSearchParams } from '../domain/models/IModelSearchParams';
 import { IModelsVehicles } from '../domain/models/IModelsVehicles';
 import { jsonToObjectModels } from '../mappers/ModelsMapper';
@@ -45,7 +46,7 @@ class ListModelsService {
       codigoMarca: brand,
     };
     try {
-      const resp = await axios.post(url, params);
+      const resp = await fipeClient.post(url, params);
       if (resp.status >= 400) {
         throw new ResponseError(
           `Erro HTTP da API FIPE: ${resp.status} - ${resp.statusText}`,
