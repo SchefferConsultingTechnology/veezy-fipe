@@ -3,7 +3,13 @@
 // a função ao iniciar ("Cannot find module '@shared/...'"). Por isso ele usa o
 // código já compilado pelo Babel em dist/ (npm run build, via vercel.json),
 // onde os atalhos viram caminhos relativos.
-// eslint-disable-next-line @typescript-eslint/no-require-imports
-const { app } = require('./dist/shared/infra/http/app');
+// O import do express precisa ficar: é por ele que o Vercel reconhece este
+// arquivo como ponto de entrada ("No entrypoint found which imports express").
+import express from 'express';
 
-export default app;
+type CompiledApp = { app: express.Express };
+
+// eslint-disable-next-line @typescript-eslint/no-require-imports
+const compiled: CompiledApp = require('./dist/shared/infra/http/app');
+
+export default compiled.app;
